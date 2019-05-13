@@ -14,6 +14,9 @@ import java.util.List;
 //@Accessors(chain = true)
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
+    public User() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
