@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) { this.userService = userService; }
 
-    @GetMapping("/")
+    @GetMapping("/alluser")
     public List<User> getUsers() {
         List<User> users = userRepository.findAll();
         for(User user1 : users){
@@ -50,19 +50,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
+    public ResponseEntity loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
         User user = userService.validateUser(email, password);
 
         if (user == null) {
             model.put("errorMessage", "Invalid Credentials");
-            return "User not found!";
+            return new ResponseEntity("User not found!", HttpStatus.NOT_FOUND);
         }
 
         model.put("email", email);
         model.put("password", password);
         httpSession.setAttribute("screenname", user.getScreenName());
         httpSession.setAttribute("userid", user.getId());
-        return "Welcome" + " " + user.getScreenName();
+        return new ResponseEntity("Welcome" + " " + user.getScreenName(), HttpStatus.OK);
     }
 
 
