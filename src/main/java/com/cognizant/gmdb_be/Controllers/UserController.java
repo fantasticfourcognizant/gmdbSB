@@ -49,16 +49,21 @@ public class UserController {
         return new ResponseEntity("User created!!", HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
-//        User user = userService.validateUser(email, password);
-//
-//        if (user == null) {
-//            return new ResponseEntity("User Not Found!", HttpStatus.NOT_FOUND);
-//        }
-//
-//        return new ResponseEntity()
-//    }
+    @PostMapping("/login")
+    public String loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
+        User user = userService.validateUser(email, password);
+
+        if (user == null) {
+            model.put("errorMessage", "Invalid Credentials");
+            return "User not found!";
+        }
+
+        model.put("email", email);
+        model.put("password", password);
+        httpSession.setAttribute("screenname", user.getScreenName());
+        httpSession.setAttribute("userid", user.getId());
+        return "Welcome" + " " + user.getScreenName();
+    }
 
 
 
