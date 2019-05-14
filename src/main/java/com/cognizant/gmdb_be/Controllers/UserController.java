@@ -2,16 +2,27 @@ package com.cognizant.gmdb_be.Controllers;
 
 import com.cognizant.gmdb_be.Models.User;
 import com.cognizant.gmdb_be.Repositories.UserRepository;
+import com.cognizant.gmdb_be.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+@CrossOrigin
 @RestController
 public class UserController {
+
+    private final UserService userService;
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    public UserController(UserService userService) { this.userService = userService; }
 
     @GetMapping("/")
     public List<User> getUsers() {
@@ -37,6 +48,17 @@ public class UserController {
         userRepository.save(user);
         return new ResponseEntity("User created!!", HttpStatus.CREATED);
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
+//        User user = userService.validateUser(email, password);
+//
+//        if (user == null) {
+//            return new ResponseEntity("User Not Found!", HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new ResponseEntity()
+//    }
 
 
 
