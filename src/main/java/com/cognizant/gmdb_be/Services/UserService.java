@@ -24,4 +24,17 @@ public class UserService {
         if(user == null) return null;
         else return user;
     }
+
+    public boolean createUser(User user) {
+        List<User> users = userRepository.findAll();
+
+        for (User newUser : users) {
+            if(newUser.getEmail().equals(user.getEmail())){
+                return false;
+            }
+
+        }
+        userRepository.save(user);
+        return true;
+    }
 }

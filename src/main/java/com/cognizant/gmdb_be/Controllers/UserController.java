@@ -35,17 +35,12 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity createUser(@RequestBody User user) {
-        List<User> users = userRepository.findAll();
+        boolean response = userService.createUser(user);
 
-        for (User newUser : users) {
-            System.out.println(newUser);
-            if(newUser.getEmail().equals(user.getEmail())){
-                return new ResponseEntity("User already exists!!", HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-
+        if (response == false) {
+            return new ResponseEntity("User already exists!!", HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        userRepository.save(user);
         return new ResponseEntity("User created!!", HttpStatus.CREATED);
     }
 

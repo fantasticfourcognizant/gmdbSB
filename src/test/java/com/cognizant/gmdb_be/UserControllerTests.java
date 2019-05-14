@@ -41,7 +41,7 @@ public class UserControllerTests {
     public void createNewUser() throws Exception {
 
         User user = new User();
-        user.setEmail("md@test.com");
+        user.setEmail("md22@test.com");
         user.setPassword("testing");
         user.setScreenName("md");
 
