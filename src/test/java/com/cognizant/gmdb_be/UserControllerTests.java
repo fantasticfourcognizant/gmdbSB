@@ -71,20 +71,15 @@ public class UserControllerTests {
 
     @Test
     public void successLogin() throws Exception {
-         String email;
-         String password;
-
         Login login = new Login();
         login.setEmail("test@test.com");
         login.setPassword("test");
 
-        mapper.writeValue(new File("./login.json"), login);
         String loginAsString = mapper.writeValueAsString(login);
 
         mvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("email", login.getEmail())
-                .param("password", login.getPassword()))
+                .content(loginAsString))
                 .andExpect(status().is(200));
     }
 
@@ -94,10 +89,11 @@ public class UserControllerTests {
         login.setEmail("test22@test.com");
         login.setPassword("test234");
 
+        String loginAsString = mapper.writeValueAsString(login);
+
         mvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("email", login.getEmail())
-                .param("password", login.getPassword()))
+                .content(loginAsString))
                 .andExpect(status().is(404));
     }
 
