@@ -1,5 +1,6 @@
 package com.cognizant.gmdb_be.Controllers;
 
+import com.cognizant.gmdb_be.Models.Login;
 import com.cognizant.gmdb_be.Models.User;
 import com.cognizant.gmdb_be.Repositories.UserRepository;
 import com.cognizant.gmdb_be.Services.UserService;
@@ -45,16 +46,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity loginUser(HttpSession httpSession, ModelMap model, @RequestParam String email, @RequestParam String password ) {
-        User user = userService.validateUser(email, password);
+    public ResponseEntity loginUser(HttpSession httpSession, ModelMap model, @RequestBody Login login) {
+        User user = userService.validateUser(login.getEmail(), login.getPassword());
 
         if (user == null) {
             model.put("errorMessage", "Invalid Credentials");
             return new ResponseEntity("User not found!", HttpStatus.NOT_FOUND);
         }
 
-        model.put("email", email);
-        model.put("password", password);
+        model.put("email", login.getEmail());
+        model.put("password", login.getPassword());
         httpSession.setAttribute("screenname", user.getScreenName());
         httpSession.setAttribute("userid", user.getId());
         return new ResponseEntity("Welcome" + " " + user.getScreenName(), HttpStatus.OK);
