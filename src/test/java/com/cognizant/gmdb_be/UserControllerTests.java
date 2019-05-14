@@ -37,17 +37,33 @@ public class UserControllerTests {
     @Test
     public void createNewUser() throws Exception {
 
-//        User user = new User();
-//        user.setEmail("md@test.com");
-//        user.setPassword("testing");
-//        user.setScreenName("md");
+        User user = new User();
+        user.setEmail("md@test.com");
+        user.setPassword("testing");
+        user.setScreenName("md");
 
-//        String jsonInString = mapper.writeValueAsString(user);
+        String jsonInString = mapper.writeValueAsString(user);
 
-//        mvc.perform(post("/signup")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(jsonInString))
-//                .andExpect(status().isOk());
+        mvc.perform(post("/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonInString))
+                .andExpect(status().is(201));
   }
+
+    @Test
+    public void checkExistingUser() throws Exception {
+
+        User user = new User();
+        user.setEmail("test5@test.com");
+        user.setPassword("test2");
+        user.setScreenName("md");
+
+        String jsonInString = mapper.writeValueAsString(user);
+
+        mvc.perform(post("/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonInString))
+                .andExpect(status().is(422));
+    }
 
 }
