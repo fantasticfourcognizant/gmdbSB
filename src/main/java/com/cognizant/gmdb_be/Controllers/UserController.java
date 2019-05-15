@@ -58,7 +58,8 @@ public class UserController {
         model.put("password", login.getPassword());
         httpSession.setAttribute("screenname", user.getScreenName());
         httpSession.setAttribute("userid", user.getId());
-        return new ResponseEntity("Welcome" + " " + user.getScreenName(), HttpStatus.OK);
+
+        return new ResponseEntity(user + user.getScreenName(), HttpStatus.OK);
     }
 
 
