@@ -33,18 +33,18 @@ public class MovieController {
 
     }
 
-    @GetMapping("/movie")
+    @GetMapping("/movie/title")
     public List<Movie> getMoviebyTitle(@RequestParam(value="title") String title) {
         return movieRepository.findMovieByTitle(title);
 
     }
 
 
-//    @GetMapping("/movie/title")
-//    public List<Movie> getMovieByYear(@RequestParam(value="year") String year) {
-//        return movieRepository.findMovieByYear(year);
-//
-//    }
+    @GetMapping("/movie/year")
+    public List<Movie> getMovieByYear(@RequestParam(value="year") String year) {
+        return movieRepository.findMovieByYear(year);
+
+    }
 
 
 

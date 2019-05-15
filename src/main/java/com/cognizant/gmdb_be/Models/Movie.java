@@ -82,7 +82,7 @@ public class Movie
     private Date DVD;
 
     @Column(name="YEAR")
-    private String Year;
+    private String year;
 
     @Column(name="POSTER")
     private String Poster;
@@ -261,11 +261,11 @@ public class Movie
     }
 
     public String getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(String year) {
-        Year = year;
+        year = year;
     }
 
     public String getPoster() {

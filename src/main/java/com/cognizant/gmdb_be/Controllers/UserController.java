@@ -72,7 +72,7 @@ public class UserController {
         }
 
 
-        return new ResponseEntity(json, HttpStatus.OK);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
 
