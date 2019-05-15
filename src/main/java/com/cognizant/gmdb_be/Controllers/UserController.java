@@ -59,7 +59,7 @@ public class UserController {
         httpSession.setAttribute("screenname", user.getScreenName());
         httpSession.setAttribute("userid", user.getId());
 
-        return new ResponseEntity(user + user.getScreenName(), HttpStatus.OK);
+        return new ResponseEntity(user.toString(), HttpStatus.OK);
     }
 
 
