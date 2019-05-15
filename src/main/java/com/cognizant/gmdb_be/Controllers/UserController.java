@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.*;
 
 @CrossOrigin
 @RestController
@@ -59,7 +62,17 @@ public class UserController {
         httpSession.setAttribute("screenname", user.getScreenName());
         httpSession.setAttribute("userid", user.getId());
 
-        return new ResponseEntity(user.toString(), HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = new String();
+        try{
+            json = mapper.writeValueAsString(user);
+        }catch (Exception  e) {
+            // catch various errors
+            e.printStackTrace();
+        }
+
+
+        return new ResponseEntity(json, HttpStatus.OK);
     }
 
 
