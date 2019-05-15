@@ -11,10 +11,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.*;
+import java.util.*;
+import org.springframework.http.HttpHeaders;
 
 @CrossOrigin
 @RestController
@@ -71,8 +74,12 @@ public class UserController {
             e.printStackTrace();
         }
 
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("status", "200");
 
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity(json, responseHeaders, HttpStatus.OK);
+
+        return responseEntity;
     }
 
 
