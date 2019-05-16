@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity(name="MOVIES")
 @Data
-public class Movie
+public class Movie implements Serializable
 {
     public Movie() {
 

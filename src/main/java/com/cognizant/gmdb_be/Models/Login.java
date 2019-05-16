@@ -1,6 +1,10 @@
 package com.cognizant.gmdb_be.Models;
 
-public class Login {
+import javax.persistence.Entity;
+import java.io.Serializable;
+
+
+public class Login implements Serializable {
     private String email;
     private String password;
 

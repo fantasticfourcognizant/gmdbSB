@@ -47,11 +47,25 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
-    public void createMovie(@RequestBody Movie movie) {
-        movieRepository.save(movie);
+    public ResponseEntity createMovie(@RequestBody Movie movie) {
+
+        boolean movieExists = false;
+
+        List<Movie> movies = movieRepository.findAll();
+
+        for (Movie movie1 : movies) {
+            if(movie1.getTitle().equals(movie.getTitle())){
+                movieExists = true;
+            }
+
+        }
+        if(!movieExists){
+            movieRepository.save(movie);
+            return new ResponseEntity("Movie added!!", HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity("Movie already exists!!", HttpStatus.ALREADY_REPORTED);
+        }
+
     }
-
-
-
 
 }

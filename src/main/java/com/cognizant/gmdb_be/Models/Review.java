@@ -7,10 +7,10 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Getter
-@Setter
+
 @Entity
 @Accessors(chain = true)
 public class Review {
@@ -19,7 +19,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "movie_id", nullable = false)
     Movie movie;
 
@@ -35,4 +35,52 @@ public class Review {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     Date lastUpdated;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getReviewText() {
+        return reviewText;
+    }
+
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

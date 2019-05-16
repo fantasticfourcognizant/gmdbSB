@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 //import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 //@Accessors(chain = true)
 //@JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+public class User implements Serializable {
 
     public User() {
     }
@@ -61,9 +62,9 @@ public class User {
         this.screenName = screenName;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
+//    public List<Review> getReviews() {
+//        return reviews;
+//    }
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;

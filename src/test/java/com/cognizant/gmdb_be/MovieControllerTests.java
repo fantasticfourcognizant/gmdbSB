@@ -18,6 +18,8 @@ import java.io.File;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,16 +39,36 @@ public class MovieControllerTests {
 
     }
 
-    public void getMoviebyTitle() throws Exception{
+    @Test
+    public void shouldReturnMovieStatus() throws Exception{
 
-        Movie movie = new Movie();
-        movie.setTitle("GodFather");
+        mvc.perform(
+                get("/movie/title?title=Avengers: Endgame")).andExpect(status().isOk());
+    }
 
-
+    @Test
+    public void getMovieByTitle() throws Exception
+    {
+        mvc.perform( MockMvcRequestBuilders
+                .get("/movie/title?title=Avengers: Endgame")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", is("Avengers: Endgame")));
     }
 
 
-
+    @Test
+    public void getMovieByYear() throws Exception
+    {
+        mvc.perform( MockMvcRequestBuilders
+                .get("/movie/year?year=2017")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].year").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].year", is("2017")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", is("Guardians of the Galaxy Vol. 2")));
+    }
 
 
 }
